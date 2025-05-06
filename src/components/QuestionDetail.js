@@ -2,12 +2,37 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import questionsData from '../questionsData';
 
+// Categories for tagging
+const categories = [
+  { id: 'basics', name: 'React Basics', tag: 'Basics', ids: [1, 2, 3, 4] },
+  { id: 'hooks', name: 'Hooks', tag: 'Hooks', ids: [2, 9, 13, 18] },
+  { id: 'components', name: 'Components', tag: 'Component', ids: [4, 5, 6, 7, 14] },
+  { id: 'forms', name: 'Forms & User Input', tag: 'Form', ids: [8, 15, 20, 21, 22] },
+  { id: 'state', name: 'State Management', tag: 'State', ids: [5, 12, 16, 19, 23] },
+  { id: 'effects', name: 'Effects & Lifecycle', tag: 'Effect', ids: [9, 13, 17, 18] },
+  { id: 'routing', name: 'Routing', tag: 'Router', ids: [10, 11] }
+];
+
 const QuestionDetail = () => {
   const { id } = useParams();
   const questionId = parseInt(id);
   
   // Find the question with the matching ID
   const question = questionsData.find(q => q.id === questionId);
+  
+  // Get category tags for a question
+  const getCategoryTags = (id) => {
+    // Find which categories this question belongs to
+    return categories
+      .filter(cat => cat.ids && cat.ids.includes(id))
+      .map(cat => cat.tag);
+  };
+  
+  // Format the number in a more elegant way
+  const formatNumber = (num) => {
+    // Convert to padded string with leading zeros
+    return `EX-${String(num).padStart(2, '0')}`;
+  };
   
   if (!question) {
     return (
@@ -55,7 +80,12 @@ const QuestionDetail = () => {
   return (
     <div className="question-detail">
       <div className="question-header">
-        <span className="question-number">Example #{question.id}</span>
+        <div className="detail-number">{formatNumber(question.id)}</div>
+        <div className="tag-container">
+          {getCategoryTags(question.id).map((tag, index) => (
+            <span key={index} className="detail-tag">{tag}</span>
+          ))}
+        </div>
         <h2>{question.question}</h2>
       </div>
       

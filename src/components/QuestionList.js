@@ -45,6 +45,40 @@ const QuestionList = () => {
     setSearchTerm('');
   };
   
+  // Get a category tag for each question based on its ID
+  const getCategoryTag = (id) => {
+    // Find which categories this question belongs to
+    const questionCategories = categories
+      .filter(cat => cat.id !== 'all' && cat.ids && cat.ids.includes(id))
+      .map(cat => cat.name);
+    
+    if (questionCategories.length === 0) {
+      return 'Example';
+    }
+    
+    // Use the first category as the tag
+    const primaryCategory = questionCategories[0];
+    
+    // Map category names to shorter tags
+    const tagMap = {
+      'React Basics': 'Basics',
+      'Hooks': 'Hooks',
+      'Components': 'Component',
+      'Forms & User Input': 'Form',
+      'State Management': 'State',
+      'Effects & Lifecycle': 'Effect',
+      'Routing': 'Router'
+    };
+    
+    return tagMap[primaryCategory] || primaryCategory;
+  };
+  
+  // Format the number in a more elegant way
+  const formatNumber = (num) => {
+    // Convert to padded string with leading zeros
+    return `EX-${String(num).padStart(2, '0')}`;
+  };
+  
   return (
     <div className="question-list">
       <div className="list-header">
@@ -89,9 +123,10 @@ const QuestionList = () => {
             <li key={question.id} className="question-item">
               <Link to={`/question/${question.id}`}>
                 <div className="question-card">
-                  <span className="question-number">#{question.id}</span>
+                  <div className="card-tag">{getCategoryTag(question.id)}</div>
+                  <div className="card-number">{formatNumber(question.id)}</div>
                   <h3>{question.question}</h3>
-                  <div className="view-solution">View Solution →</div>
+                  <div className="view-solution">View Example →</div>
                 </div>
               </Link>
             </li>
