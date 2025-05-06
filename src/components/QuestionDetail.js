@@ -2,16 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import questionsData from '../questionsData';
 
-// Categories for tagging
-const categories = [
-  { id: 'basics', name: 'React Basics', tag: 'Basics', ids: [1, 2, 3, 4] },
-  { id: 'hooks', name: 'Hooks', tag: 'Hooks', ids: [2, 9, 13, 18] },
-  { id: 'components', name: 'Components', tag: 'Component', ids: [4, 5, 6, 7, 14] },
-  { id: 'forms', name: 'Forms & User Input', tag: 'Form', ids: [8, 15, 20, 21, 22] },
-  { id: 'state', name: 'State Management', tag: 'State', ids: [5, 12, 16, 19, 23] },
-  { id: 'effects', name: 'Effects & Lifecycle', tag: 'Effect', ids: [9, 13, 17, 18] },
-  { id: 'routing', name: 'Routing', tag: 'Router', ids: [10, 11] }
-];
+// No categories needed
 
 const QuestionDetail = () => {
   const { id } = useParams();
@@ -37,13 +28,7 @@ const QuestionDetail = () => {
     }
   };
   
-  // Get category tags for a question
-  const getCategoryTags = (id) => {
-    // Find which categories this question belongs to
-    return categories
-      .filter(cat => cat.ids && cat.ids.includes(id))
-      .map(cat => cat.tag);
-  };
+  // No category tags needed
   
   // Format the number in a simple way
   const formatNumber = (num) => {
@@ -88,7 +73,7 @@ const QuestionDetail = () => {
             >
               {copySuccess ? 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> : 
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
               }
             </button>
             <pre key={`code-${index}`} className="code-block">
@@ -109,11 +94,6 @@ const QuestionDetail = () => {
     <div className="question-detail">
       <div className="question-header">
         <div className="detail-number">{formatNumber(question.id)}</div>
-        <div className="tag-container">
-          {getCategoryTags(question.id).map((tag, index) => (
-            <span key={index} className="detail-tag">{tag}</span>
-          ))}
-        </div>
         <h2>{question.question}</h2>
       </div>
       
