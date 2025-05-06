@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import questionsData from '../questionsData';
 
@@ -16,9 +16,26 @@ const categories = [
 const QuestionDetail = () => {
   const { id } = useParams();
   const questionId = parseInt(id);
+  const [copySuccess, setCopySuccess] = useState(false);
   
   // Find the question with the matching ID
   const question = questionsData.find(q => q.id === questionId);
+  
+  // Function to handle code copying
+  const copyToClipboard = () => {
+    // Extract code from the answer (between ```jsx and ```)
+    const codeMatch = question.answer.match(/```jsx\n([\s\S]*?)```/);
+    if (codeMatch && codeMatch[1]) {
+      navigator.clipboard.writeText(codeMatch[1])
+        .then(() => {
+          setCopySuccess(true);
+          setTimeout(() => setCopySuccess(false), 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    }
+  };
   
   // Get category tags for a question
   const getCategoryTags = (id) => {
@@ -28,10 +45,9 @@ const QuestionDetail = () => {
       .map(cat => cat.tag);
   };
   
-  // Format the number in a more elegant way
+  // Format the number in a simple way
   const formatNumber = (num) => {
-    // Convert to padded string with leading zeros
-    return `EX-${String(num).padStart(2, '0')}`;
+    return `${num}`;
   };
   
   if (!question) {
@@ -39,8 +55,8 @@ const QuestionDetail = () => {
       <div className="question-detail not-found">
         <div className="not-found-content">
           <h2>Question not found</h2>
-          <p>The example you're looking for doesn't exist or has been moved.</p>
-          <Link to="/" className="back-link">Back to Examples</Link>
+          <p>The question you're looking for doesn't exist or has been moved.</p>
+          <Link to="/" className="back-link">Back to Questions</Link>
         </div>
       </div>
     );
@@ -64,9 +80,17 @@ const QuestionDetail = () => {
         // Code block: remove the language identifier (jsx) and format
         const code = part.replace(/^jsx\n/, '');
         return (
-          <pre key={`code-${index}`} className="code-block">
-            <code>{code}</code>
-          </pre>
+          <div key={`code-container-${index}`} className="code-container">
+            <button 
+              className={`copy-button ${copySuccess ? 'copied' : ''}`} 
+              onClick={copyToClipboard}
+            >
+              {copySuccess ? '✓ Copied!' : '📋 Copy'}
+            </button>
+            <pre key={`code-${index}`} className="code-block">
+              <code>{code}</code>
+            </pre>
+          </div>
         );
       }
     });
@@ -96,7 +120,7 @@ const QuestionDetail = () => {
       <div className="navigation-controls">
         <div className="nav-buttons">
           <Link to="/" className="back-link">
-            <span className="nav-icon">←</span> All Examples
+            <span className="nav-icon">←</span> All Questions
           </Link>
           
           <div className="prev-next-controls">

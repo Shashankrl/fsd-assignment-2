@@ -9,7 +9,7 @@ const QuestionList = () => {
   
   // Categories for filtering
   const categories = [
-    { id: 'all', name: 'All Examples' },
+    { id: 'all', name: 'All Questions' },
     { id: 'basics', name: 'React Basics', ids: [1, 2, 3, 4] },
     { id: 'hooks', name: 'Hooks', ids: [2, 9, 13, 18] },
     { id: 'components', name: 'Components', ids: [4, 5, 6, 7, 14] },
@@ -73,24 +73,23 @@ const QuestionList = () => {
     return tagMap[primaryCategory] || primaryCategory;
   };
   
-  // Format the number in a more elegant way
+  // Format the number in a simple way
   const formatNumber = (num) => {
-    // Convert to padded string with leading zeros
-    return `EX-${String(num).padStart(2, '0')}`;
+    return `${num}`;
   };
   
   return (
     <div className="question-list">
       <div className="list-header">
         <h2>FSD ASSIGNMENT II</h2>
-        <p className="subtitle">A collection of practical React code examples and solutions</p>
+        <p className="subtitle">A collection of practical React code questions and solutions</p>
       </div>
       
       <div className="filters-container">
         <div className="search-container">
           <input
             type="text"
-            placeholder="Search examples..."
+            placeholder="Search questions..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
@@ -114,7 +113,7 @@ const QuestionList = () => {
       </div>
       
       <div className="question-count">
-        Showing {filteredQuestions.length} of {questionsData.length} examples
+        Showing {filteredQuestions.length} of {questionsData.length} questions
       </div>
       
       {filteredQuestions.length > 0 ? (
@@ -126,7 +125,7 @@ const QuestionList = () => {
                   <div className="card-tag">{getCategoryTag(question.id)}</div>
                   <div className="card-number">{formatNumber(question.id)}</div>
                   <h3>{question.question}</h3>
-                  <div className="view-solution">View Example →</div>
+                  <div className="view-solution">View Solution →</div>
                 </div>
               </Link>
             </li>
@@ -134,7 +133,7 @@ const QuestionList = () => {
         </ul>
       ) : (
         <div className="no-results">
-          <p>No examples match your search criteria.</p>
+          <p>No questions match your search criteria.</p>
           <button onClick={() => {setSearchTerm(''); setActiveCategory('all');}}>
             Reset Filters
           </button>
