@@ -29,11 +29,6 @@ const Header = () => {
             <li>
               <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
             </li>
-            <li>
-              <a href="https://github.com/yourusername/fsd-assignment-2" target="_blank" rel="noopener noreferrer">
-                GitHub
-              </a>
-            </li>
           </ul>
         </nav>
       </div>
