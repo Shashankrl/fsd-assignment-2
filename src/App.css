@@ -557,6 +557,7 @@ button:active {
   background-color: var(--code-bg);
   color: var(--code-text);
   padding: 1.2rem;
+  padding-top: 2rem;
   border-radius: var(--radius);
   overflow-x: auto;
   margin: 0;
@@ -576,14 +577,14 @@ button:active {
   color: var(--code-text);
   border: none;
   border-radius: 4px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   transition: var(--transition);
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: center;
 }
 
 .copy-button:hover {
@@ -599,7 +600,7 @@ button:active {
   content: 'JSX';
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
+  left: 0.5rem;
   background-color: rgba(97, 218, 251, 0.2);
   color: var(--primary-color);
   padding: 0.2rem 0.5rem;
