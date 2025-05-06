@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom';
 import questionsData from '../questionsData';
   
 const QuestionList = () => {
-  // Format the number in a simple way
-  const formatNumber = (num) => {
-    return `${num}`;
-  };
-  
   return (
     <div className="question-list">
       <div className="list-header">
@@ -20,7 +15,7 @@ const QuestionList = () => {
           <li key={question.id} className="question-item">
             <Link to={`/question/${question.id}`}>
               <div className="question-card">
-                <div className="card-number">{formatNumber(question.id)}</div>
+                <div className="card-number">{question.id}</div>
                 <h3>{question.question}</h3>
                 <div className="view-solution">View Solution →</div>
               </div>

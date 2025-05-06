@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import questionsData from '../questionsData';
 
-// No categories needed
-
 const QuestionDetail = () => {
   const { id } = useParams();
   const questionId = parseInt(id);
   const [copySuccess, setCopySuccess] = useState(false);
   
-  // Find the question with the matching ID
   const question = questionsData.find(q => q.id === questionId);
   
-  // Function to handle code copying
   const copyToClipboard = () => {
-    // Extract code from the answer (between ```jsx and ```)
     const codeMatch = question.answer.match(/```jsx\n([\s\S]*?)```/);
     if (codeMatch && codeMatch[1]) {
       navigator.clipboard.writeText(codeMatch[1])
@@ -26,13 +21,6 @@ const QuestionDetail = () => {
           console.error('Failed to copy: ', err);
         });
     }
-  };
-  
-  // No category tags needed
-  
-  // Format the number in a simple way
-  const formatNumber = (num) => {
-    return `${num}`;
   };
   
   if (!question) {
@@ -47,22 +35,17 @@ const QuestionDetail = () => {
     );
   }
   
-  // Function to format code blocks in the answer
   const formatAnswer = (text) => {
     if (!text) return '';
     
-    // Split by code blocks
     const parts = text.split('```');
     
     return parts.map((part, index) => {
-      // Even indices are regular text, odd indices are code blocks
       if (index % 2 === 0) {
-        // Regular text: split by newlines and create paragraphs
         return part.split('\n').map((line, i) => 
           line ? <p key={`text-${index}-${i}`}>{line}</p> : <br key={`br-${index}-${i}`} />
         );
       } else {
-        // Code block: remove the language identifier (jsx) and format
         const code = part.replace(/^jsx\n/, '');
         return (
           <div key={`code-container-${index}`} className="code-container">
@@ -85,7 +68,6 @@ const QuestionDetail = () => {
     });
   };
   
-  // Get previous and next question IDs for navigation
   const currentIndex = questionsData.findIndex(q => q.id === questionId);
   const prevQuestion = currentIndex > 0 ? questionsData[currentIndex - 1] : null;
   const nextQuestion = currentIndex < questionsData.length - 1 ? questionsData[currentIndex + 1] : null;
@@ -93,7 +75,7 @@ const QuestionDetail = () => {
   return (
     <div className="question-detail">
       <div className="question-header">
-        <div className="detail-number">{formatNumber(question.id)}</div>
+        <div className="detail-number">{question.id}</div>
         <h2>{question.question}</h2>
       </div>
       
