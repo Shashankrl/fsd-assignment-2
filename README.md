@@ -1,20 +1,29 @@
 # FSD ASSIGNMENT II
 
-A collection of practical React code examples and solutions.
+A collection of practical React code questions and solutions for learning React fundamentals.
 
 ## Features
 
-- Interactive React code examples
-- Searchable interface
-- Category filtering
-- Responsive design
-- Clean UI
+- Interactive React code examples with solutions
+- Copy-to-clipboard functionality for code snippets
+- Navigation between questions
+- Responsive design for all devices
+- Clean and intuitive UI
+
+## Application Overview
+
+This application serves as a learning resource for React developers, featuring:
+
+- 14 practical React coding questions
+- Detailed solutions with working code examples
+- Code explanations with proper formatting
+- Easy navigation between questions
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v16 or higher)
 - npm or yarn
 
 ### Installation
@@ -60,13 +69,27 @@ Builds the app for production to the `build` folder.
 
 ## Technologies Used
 
-- React
-- React Router
+- React 18
+- React Router 6
 - CSS3
 - JavaScript ES6+
 
 ## Project Structure
 
-- `src/components/` - React components
-- `src/questionsData.js` - Data for all code examples
+- `src/components/` - React components (Header, QuestionList, QuestionDetail)
+- `src/pages/` - Page components (Home, Question)
+- `src/questionsData.js` - Data for all React questions and solutions
 - `public/` - Static assets
+
+## Topics Covered
+
+The application covers essential React topics including:
+
+- Props and State
+- React Hooks (useState, useEffect)
+- Conditional Rendering
+- Component Creation
+- Form Handling
+- List Rendering
+- React Router
+- Event Handling
